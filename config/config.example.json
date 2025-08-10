@@ -1,5 +1,6 @@
 {
-    "_comment": "Todoist Task Fetcher Configuration - Copy this file to config.local.json and fill in your details",
+    "_comment": "TodoistTaskFetcher Configuration - Copy this file to config.local.json and fill in your details",
+    "_usage": "This project generates task files that your Rainmeter skin reads from Documents/Rainmeter/Skins/Todoist",
     "todoist": {
         "api_token": "YOUR_TODOIST_API_TOKEN_HERE",
         "filter": "#Inbox",

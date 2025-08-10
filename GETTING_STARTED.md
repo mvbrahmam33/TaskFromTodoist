@@ -4,25 +4,32 @@ Welcome to **TodoistTaskFetcher** - a powerful tool that displays your Todoist t
 
 ## 📋 What This Project Does
 
-This project creates a **desktop widget** that:
-1. **Fetches your tasks** from Todoist automatically
-2. **Processes your wallpaper** to create a beautiful blurred background
-3. **Displays tasks on your desktop** using Rainmeter with a modern, clean interface
-4. **Updates automatically** - just click refresh to get the latest tasks
+This project creates a **complete desktop task management system** that works in two parts:
 
-### 🖼️ Visual Example
+1. **TodoistTaskFetcher** (this project) - Fetches your Todoist tasks and saves them to a text file
+2. **Rainmeter Skin** (separate, in your Documents folder) - Reads the text file and displays tasks on your desktop
 
-Your desktop will show something like this:
+### 🔄 How It Works Together
 ```
-┌─────────────────────────────┐
-│  📝 TASKS:                  │
-│  1) Complete project docs   │
-│  2) Review pull requests    │
-│  3) Update website content  │
-│  4) Call dentist           │
-│  [🔄 Refresh]              │
-└─────────────────────────────┘
+Todoist API → This Project → tasks.txt → Your Rainmeter Skin → Desktop Widget
 ```
+
+### 🎯 What You Get
+
+**Always Generated**: A text file with your tasks:
+```
+TASKS:
+1) Complete project documentation
+2) Review pull requests    
+3) Update website content
+4) Call dentist
+```
+
+**With Rainmeter Integration**: A gorgeous desktop widget featuring:
+- ✨ Beautiful task display with custom fonts and colors
+- 🎨 Automatically blurred wallpaper background  
+- 🔄 Click-to-refresh button for instant updates
+- ⚙️ Fully customizable appearance and layout
 
 ## ⚡ Quick Start (5 Minutes Setup)
 
@@ -67,17 +74,18 @@ Edit `config\config.local.json` and replace:
 
 You should see your tasks in the `output\tasks.txt` file!
 
-## 🎯 Full Desktop Integration (Optional)
+## 🎯 Full Desktop Integration (If You Have Rainmeter)
 
-To get the **full desktop widget experience**, you'll need Rainmeter:
+If you have a Rainmeter skin installed in your Documents folder, you can get the complete desktop widget experience:
 
-### Install Rainmeter
-1. Download from [rainmeter.net](https://www.rainmeter.net/)
-2. Install with default settings
+### Your Rainmeter Skin Location
+Your Rainmeter skin should be at:
+```
+C:\Users\YourName\Documents\Rainmeter\Skins\Todoist\
+```
 
-### Set Up the Desktop Widget
-1. Copy your Rainmeter skin files to: `C:\Users\YourName\Documents\Rainmeter\Skins\Todoist\`
-2. Update paths in `config\config.local.json`:
+### Connect the Project to Your Skin
+1. **Configure the paths** in `config\config.local.json`:
 ```json
 {
     "paths": {
@@ -85,13 +93,23 @@ To get the **full desktop widget experience**, you'll need Rainmeter:
     }
 }
 ```
+*Replace `YourName` with your actual Windows username*
 
-3. Run the full script:
+2. **Run the complete integration**:
 ```powershell
 .\scripts\todoistRefresh.ps1
 ```
 
-Now you'll have a beautiful desktop widget showing your tasks!
+### What This Does
+- ✅ Fetches your latest Todoist tasks
+- ✅ Saves them to the file your Rainmeter skin reads
+- ✅ Processes your wallpaper for the widget background
+- ✅ Refreshes your desktop widget automatically
+
+### Don't Have Rainmeter?
+No problem! The project still works great - you'll get your tasks in a clean text file that you can view however you like.
+
+**Want the desktop widget?** See [`RAINMETER_INTEGRATION.md`](RAINMETER_INTEGRATION.md) for complete setup instructions.
 
 ## 🛠️ Prerequisites
 
