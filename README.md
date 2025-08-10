@@ -26,88 +26,108 @@ A C++ application that fetches tasks from Todoist's inbox and integrates with Ra
 
 ```
 TasksFromTodoist/
-├── todoistArg.cpp          # Main C++ application
-├── todoistArg.exe          # Compiled executable
-├── makefile               # Build configuration
-├── todoistRefresh.ps1     # PowerShell automation script
-├── todoistRefresh copy.ps1 # Backup of PowerShell script
-├── output/                # Output directory for test files
-│   └── test.txt          # Sample output
-└── README.md             # This file
+├── src/                      # Source code
+│   ├── main.cpp             # Main application
+│   └── todoist_fetcher.hpp  # Header definitions
+├── scripts/                  # Automation scripts
+│   ├── todoistRefresh.ps1   # Main automation script
+│   └── setup.ps1            # Project setup script
+├── build/                    # Build output (generated)
+├── output/                   # Task output files (generated)
+├── config/                   # Configuration files
+│   └── config.example.json  # Configuration template
+├── docs/                     # Documentation
+│   └── BUILD.md             # Detailed build instructions
+├── makefile                 # Build configuration
+├── .gitignore               # Git exclusions
+└── README.md                # This file
 ```
 
-## Setup
+## Quick Start
 
-### Prerequisites
-
-1. **Install vcpkg** and set up the following packages:
-   ```bash
-   vcpkg install cpr:x64-mingw-static
-   vcpkg install nlohmann-json:x64-mingw-static
-   vcpkg install curl:x64-mingw-static
-   ```
-
-2. **Install ImageMagick** (for wallpaper processing):
-   - Download and install from [ImageMagick website](https://imagemagick.org/script/download.php#windows)
-   - Default path: `C:\Program Files\ImageMagick-7.1.1-Q16-HDRI\`
-
-3. **Get Todoist API Token**:
-   - Go to Todoist Settings → Integrations → Developer
-   - Copy your API token
-
-### Configuration
-
-1. **Update API Key**: Edit `todoistRefresh.ps1` and replace the API key:
+1. **Run the setup script**:
    ```powershell
-   $API_KEY = "your_todoist_api_token_here"
+   .\scripts\setup.ps1
    ```
 
-2. **Adjust Paths**: Update paths in `todoistRefresh.ps1` to match your system:
-   - Rainmeter skin paths
-   - Output file locations
-   - ImageMagick installation path
+2. **Configure your settings**:
+   - Edit `config\config.local.json`
+   - Add your Todoist API token
+   - Update paths for your system
 
-3. **Build Configuration**: Update `makefile` paths if needed:
-   - vcpkg installation directory
-   - Target output directories
+3. **Run the automation**:
+   ```powershell
+   .\scripts\todoistRefresh.ps1
+   ```
+
+For detailed instructions, see [`docs/BUILD.md`](docs/BUILD.md).
+
+## Configuration
+
+The project uses a JSON configuration file for easy customization. Copy `config\config.example.json` to `config\config.local.json` and update:
+
+```json
+{
+    "todoist": {
+        "api_token": "your_todoist_api_token_here",
+        "filter": "#Inbox"
+    },
+    "output": {
+        "file_path": "output/tasks.txt"
+    },
+    "rainmeter": {
+        "enabled": true,
+        "executable_path": "C:\\Program Files\\Rainmeter\\Rainmeter.exe"
+    }
+}
+```
 
 ## Building
 
-### Build the main executable:
+### Quick Build
 ```bash
 make
 ```
 
-### Build with argument support:
-```bash
-make arg
-```
+### Available Commands
+- `make` - Build main executable
+- `make debug` - Build debug version  
+- `make install` - Install to startup directory
+- `make test` - Run with test parameters
+- `make clean` - Clean build artifacts
+- `make help` - Show all available targets
 
-This creates `todoistArg.exe` which accepts command-line arguments for API key and output path.
+### Manual Build
+See [`docs/BUILD.md`](docs/BUILD.md) for detailed build instructions and troubleshooting.
 
 ## Usage
 
+### Automated Execution (Recommended)
+```powershell
+# Full automation with configuration file
+.\scripts\todoistRefresh.ps1
+
+# Skip wallpaper processing
+.\scripts\todoistRefresh.ps1 -SkipWallpaper
+
+# Skip Rainmeter operations  
+.\scripts\todoistRefresh.ps1 -SkipRainmeter
+
+# Use different API key
+.\scripts\todoistRefresh.ps1 -ApiKey "your_token"
+```
+
 ### Direct Execution
 ```bash
-./todoistArg.exe <API_KEY> <OUTPUT_PATH>
-```
+# Basic usage
+.\build\TodoistTaskFetcher.exe <API_KEY> <OUTPUT_PATH>
 
-**Example:**
-```bash
-./todoistArg.exe "your_api_token" "C:\path\to\output\tasks.txt"
-```
+# With custom filter
+.\build\TodoistTaskFetcher.exe <API_KEY> <OUTPUT_PATH> <FILTER>
 
-### Automated Execution
-Run the PowerShell script for full automation:
-```powershell
-.\todoistRefresh.ps1
+# Example
+.\build\TodoistTaskFetcher.exe "your_api_token" "output\tasks.txt" "#Inbox"
 ```
-
-This script will:
-1. Process your current wallpaper (crop and blur)
-2. Fetch tasks from Todoist
-3. Activate and refresh Rainmeter skins
-4. Save task output to the configured location
 
 ## Output Format
 

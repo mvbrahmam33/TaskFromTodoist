@@ -1,0 +1,26 @@
+{
+    "_comment": "Todoist Task Fetcher Configuration - Copy this file to config.local.json and fill in your details",
+    "todoist": {
+        "api_token": "YOUR_TODOIST_API_TOKEN_HERE",
+        "filter": "#Inbox",
+        "include_overdue": true
+    },
+    "output": {
+        "file_path": "output/tasks.txt",
+        "format": "numbered"
+    },
+    "rainmeter": {
+        "enabled": true,
+        "skin_path": "C:\\Users\\USERNAME\\Documents\\Rainmeter\\Skins\\Todoist",
+        "executable_path": "C:\\Program Files\\Rainmeter\\Rainmeter.exe"
+    },
+    "imagemagick": {
+        "executable_path": "C:\\Program Files\\ImageMagick-7.1.1-Q16-HDRI\\magick.exe",
+        "blur_radius": "0x4",
+        "crop_ratio": "16:10"
+    },
+    "paths": {
+        "wallpaper_output": "C:\\Users\\USERNAME\\Documents\\Rainmeter\\Skins\\Todoist\\@Resources\\Images\\blurImage.jpg",
+        "dimensions_file": "C:\\Users\\USERNAME\\Documents\\Rainmeter\\Skins\\Todoist\\@Resources\\dimensions.txt"
+    }
+}

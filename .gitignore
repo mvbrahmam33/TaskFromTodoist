@@ -1,1 +1,50 @@
+# Build artifacts
+build/
+*.exe
+*.obj
+*.o
+*.dll
+*.lib
+*.exp
+*.pdb
+
+# Output files
 output/
+*.txt
+!README.md
+!LICENSE
+
+# Configuration files (keep example, ignore local config)
+config/config.local.json
+config/*.local.*
+
+# IDE/Editor files
+.vscode/
+.vs/
+*.vcxproj*
+*.sln
+*.user
+*.suo
+*.sdf
+
+# System files
+Thumbs.db
+.DS_Store
+Desktop.ini
+
+# Temporary files
+*.tmp
+*.temp
+*.log
+*.bak
+*.swp
+*.swo
+
+# Dependencies (if using local packages)
+vcpkg_installed/
+packages/
+
+# Rainmeter specific (if you want to keep these private)
+# Uncomment if needed:
+# *.ini
+# *.inc
