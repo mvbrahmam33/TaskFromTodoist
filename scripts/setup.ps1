@@ -68,11 +68,14 @@ function Test-Path-Safe {
 }
 
 Write-Status "TodoistTaskFetcher Setup Script" "Cyan"
-Write-Host "================================" -ForegroundColor Cyan
+Write-Host "=====================================" -ForegroundColor Cyan
+Write-Host "This script will help you set up TodoistTaskFetcher in just a few steps!" -ForegroundColor White
+Write-Host ""
 
 # Check if we're in the right directory
 if (-not (Test-Path "makefile") -or -not (Test-Path "src")) {
     Write-Error-Custom "Please run this script from the project root directory."
+    Write-Host "Example: cd TaskFromTodoist; .\scripts\setup.ps1" -ForegroundColor Gray
     exit 1
 }
 
@@ -96,10 +99,25 @@ $configLocal = "config\config.local.json"
 if (Test-Path $configExample) {
     if (-not (Test-Path $configLocal)) {
         Copy-Item $configExample $configLocal
-        Write-Status "  Copied configuration template to config.local.json"
-        Write-Status "  IMPORTANT: Edit config\config.local.json with your settings!" "Yellow"
+        Write-Status "  ✅ Copied configuration template to config.local.json"
+        Write-Host ""
+        Write-Host "🔧 IMPORTANT: You need to configure your Todoist API token!" -ForegroundColor Yellow
+        Write-Host "   1. Get your token from: https://todoist.com/prefs/integrations" -ForegroundColor Cyan
+        Write-Host "   2. Edit config\config.local.json" -ForegroundColor Cyan  
+        Write-Host "   3. Replace YOUR_TODOIST_API_TOKEN_HERE with your actual token" -ForegroundColor Cyan
+        Write-Host ""
+        
+        $response = Read-Host "Would you like to open the config file now? (y/n)"
+        if ($response -match '^[Yy]') {
+            try {
+                & notepad $configLocal
+                Write-Status "  📝 Opened configuration file in Notepad"
+            } catch {
+                Write-Warning-Custom "Could not open Notepad. Please edit $configLocal manually."
+            }
+        }
     } else {
-        Write-Status "  Configuration file already exists: $configLocal" "Gray"
+        Write-Status "  ✅ Configuration file already exists: $configLocal" "Gray"
     }
 } else {
     Write-Warning-Custom "Configuration example not found: $configExample"
@@ -167,11 +185,31 @@ if (-not $ConfigureOnly) {
     }
 
     if ($missingDeps.Count -gt 0) {
-        Write-Error-Custom "Missing required dependencies. Please install:"
+        Write-Host ""
+        Write-Error-Custom "❌ Missing required dependencies. You have two options:"
+        Write-Host ""
+        Write-Host "Option 1 - Automated Installation (Recommended):" -ForegroundColor Cyan
+        Write-Host "  Run: .\scripts\install-dependencies.ps1" -ForegroundColor White
+        Write-Host ""
+        Write-Host "Option 2 - Manual Installation:" -ForegroundColor Cyan
         foreach ($dep in $missingDeps) {
-            Write-Host "  - $dep" -ForegroundColor Red
+            Write-Host "  - Install $dep" -ForegroundColor White
         }
-        Write-Host "See docs\BUILD.md for detailed installation instructions." -ForegroundColor Yellow
+        Write-Host ""
+        Write-Host "See GETTING_STARTED.md or TROUBLESHOOTING.md for detailed instructions." -ForegroundColor Yellow
+        
+        $response = Read-Host "Would you like to run the automated installer now? (y/n)"
+        if ($response -match '^[Yy]') {
+            Write-Host "Starting automated installation..." -ForegroundColor Green
+            try {
+                & .\scripts\install-dependencies.ps1
+                Write-Status "Dependencies installed! Please restart PowerShell and run setup again."
+                exit 0
+            } catch {
+                Write-Error-Custom "Automated installation failed. Please install dependencies manually."
+            }
+        }
+        
         exit 1
     }
 
@@ -195,11 +233,52 @@ if (-not $ConfigureOnly) {
     }
 }
 
-Write-Status "Setup completed!" "Cyan"
+Write-Status "🎉 Setup completed successfully!" "Green"
 Write-Host ""
-Write-Host "Next steps:" -ForegroundColor Yellow
-Write-Host "1. Edit config\config.local.json with your Todoist API token and paths"
-Write-Host "2. Run: .\scripts\todoistRefresh.ps1 to test the complete workflow"
-Write-Host "3. Check docs\BUILD.md for detailed usage instructions"
+Write-Host "🚀 Next steps:" -ForegroundColor Cyan
+Write-Host "=" * 50 -ForegroundColor Cyan
+
+if (Test-Path "config\config.local.json") {
+    # Check if API token is configured
+    try {
+        $config = Get-Content "config\config.local.json" | ConvertFrom-Json
+        if ($config.todoist.api_token -eq "YOUR_TODOIST_API_TOKEN_HERE") {
+            Write-Host "1. 🔑 Configure your Todoist API token:" -ForegroundColor Yellow
+            Write-Host "   - Get token from: https://todoist.com/prefs/integrations" -ForegroundColor Gray
+            Write-Host "   - Edit: config\config.local.json" -ForegroundColor Gray
+            Write-Host "   - Replace: YOUR_TODOIST_API_TOKEN_HERE" -ForegroundColor Gray
+            Write-Host ""
+            Write-Host "2. 🔨 Build the project:" -ForegroundColor Cyan
+            Write-Host "   make" -ForegroundColor White
+            Write-Host ""  
+            Write-Host "3. 🚀 Run the automation:" -ForegroundColor Cyan
+            Write-Host "   .\scripts\todoistRefresh.ps1" -ForegroundColor White
+        } else {
+            Write-Host "1. 🔨 Build the project:" -ForegroundColor Cyan
+            Write-Host "   make" -ForegroundColor White
+            Write-Host ""
+            Write-Host "2. 🚀 Run the automation:" -ForegroundColor Cyan  
+            Write-Host "   .\scripts\todoistRefresh.ps1" -ForegroundColor White
+            Write-Host ""
+            Write-Host "✅ Your API token appears to be configured!" -ForegroundColor Green
+        }
+    } catch {
+        Write-Host "1. 🔧 Fix your configuration file (JSON syntax error)" -ForegroundColor Yellow
+        Write-Host "2. 🔨 Build: make" -ForegroundColor Cyan
+        Write-Host "3. 🚀 Run: .\scripts\todoistRefresh.ps1" -ForegroundColor Cyan
+    }
+} else {
+    Write-Host "1. 🔧 Set up configuration:" -ForegroundColor Yellow
+    Write-Host "   Copy-Item config\config.example.json config\config.local.json" -ForegroundColor White
+    Write-Host "2. 🔑 Add your Todoist API token to config\config.local.json" -ForegroundColor Yellow  
+    Write-Host "3. 🔨 Build: make" -ForegroundColor Cyan
+    Write-Host "4. 🚀 Run: .\scripts\todoistRefresh.ps1" -ForegroundColor Cyan
+}
+
+Write-Host ""
+Write-Host "📚 Need help? Check:" -ForegroundColor Magenta
+Write-Host "   - GETTING_STARTED.md (complete guide)" -ForegroundColor Gray
+Write-Host "   - TROUBLESHOOTING.md (if you have issues)" -ForegroundColor Gray  
+Write-Host "   - docs\BUILD.md (detailed build info)" -ForegroundColor Gray
 Write-Host ""
 Write-Status "Happy task fetching! 🚀" "Green"

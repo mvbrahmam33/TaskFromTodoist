@@ -1,6 +1,45 @@
-# TasksFromTodoist
+# 🚀 TodoistTaskFetcher
 
-A C++ application that fetches tasks from Todoist's inbox and integrates with Rainmeter for desktop task display. This project includes a task retrieval utility and a PowerShell automation script for wallpaper processing and Rainmeter skin management.
+> **Automate your productivity!** Fetch tasks from Todoist and display them beautifully on your Windows desktop.
+
+[![GitHub release](https://img.shields.io/github/v/release/mvbrahmam33/TaskFromTodoist)](https://github.com/mvbrahmam33/TaskFromTodoist/releases)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![Windows](https://img.shields.io/badge/platform-Windows-blue.svg)](README.md)
+
+## 🎯 What Does This Do?
+
+TodoistTaskFetcher is a **desktop automation tool** that:
+
+- ✅ **Fetches your tasks** from Todoist's inbox automatically
+- 🎨 **Processes your wallpaper** to create a beautiful blurred background
+- 🖥️ **Integrates with Rainmeter** to show tasks directly on your desktop
+- ⚡ **Filters tasks** to show only what's due today or overdue
+- 🔄 **Runs automatically** via PowerShell script
+
+Perfect for productivity enthusiasts who want their tasks visible at all times!
+
+## 🚀 Quick Start (5 Minutes!)
+
+**New to this project?** 👉 **[Start here with our Getting Started Guide!](GETTING_STARTED.md)**
+
+```powershell
+# 1. Clone the project
+git clone https://github.com/mvbrahmam33/TaskFromTodoist.git
+cd TaskFromTodoist
+
+# 2. Run setup (checks dependencies, creates config)
+.\scripts\setup.ps1
+
+# 3. Add your Todoist API token
+Copy-Item config\config.example.json config\config.local.json
+notepad config\config.local.json  # Add your API token here
+
+# 4. Build and run!
+make
+.\scripts\todoistRefresh.ps1
+```
+
+**🎉 Done!** Your tasks are now fetched and displayed!
 
 ## Features
 

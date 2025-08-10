@@ -58,19 +58,9 @@ function Load-Configuration {
     
     if (-not (Test-Path $Path)) {
         if (Test-Path "config\config.example.json") {
-            Write-Status "Configuration file not found. Using fallback values." "Yellow"
-            # Return fallback configuration
-            return @{
-                todoist = @{ api_token = "c4726a7570b8c5f0aa36ba0718907a650a9eda53"; filter = "#Inbox" }
-                output = @{ file_path = "output\tasks.txt" }
-                rainmeter = @{ enabled = $true; executable_path = "C:\Program Files\Rainmeter\Rainmeter.exe" }
-                imagemagick = @{ executable_path = "C:\Program Files\ImageMagick-7.1.1-Q16-HDRI\magick.exe"; blur_radius = "0x4"; crop_ratio = "16:10" }
-                paths = @{ 
-                    wallpaper_output = "C:\Users\timet\Documents\Rainmeter\Skins\Todoist\@Resources\Images\blurImage.jpg"
-                    dimensions_file = "C:\Users\timet\Documents\Rainmeter\Skins\Todoist\@Resources\dimensions.txt"
-                    tasks_file = "C:\Users\timet\Documents\Rainmeter\Skins\Todoist\@Resources\todoistTasks.txt"
-                }
-            }
+            Write-Status "Configuration file not found. Please copy config.example.json to config.local.json and configure it." "Yellow"
+            Write-Status "Run: Copy-Item config\\config.example.json config\\config.local.json" "Cyan"
+            return $null
         } else {
             Write-Error-Custom "Configuration file not found: $Path"
             return $null
