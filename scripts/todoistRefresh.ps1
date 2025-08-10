@@ -58,8 +58,8 @@ function Load-Configuration {
     
     if (-not (Test-Path $Path)) {
         if (Test-Path "config\config.example.json") {
-            Write-Status "Configuration file not found. Please copy config.example.json to config.local.json and configure it." "Yellow"
-            Write-Status "Run: Copy-Item config\\config.example.json config\\config.local.json" "Cyan"
+            Write-Status "Configuration file not found. Please create config\config.local.json with your settings." "Yellow"
+            Write-Status "You can copy config\config.example.json as a starting point." "Yellow"
             return $null
         } else {
             Write-Error-Custom "Configuration file not found: $Path"

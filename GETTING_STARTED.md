@@ -1,235 +1,179 @@
 # 🚀 Getting Started with TodoistTaskFetcher
 
-Welcome! This guide will help you get TodoistTaskFetcher up and running in just a few minutes.
+Welcome to **TodoistTaskFetcher** - a powerful tool that displays your Todoist tasks directly on your Windows desktop using Rainmeter!
 
 ## 📋 What This Project Does
 
-TodoistTaskFetcher is a desktop automation tool that:
-- ✅ Fetches your tasks from Todoist
-- 🎨 Processes your wallpaper for a beautiful desktop background
-- 🖥️ Integrates with Rainmeter for live task display on your desktop
+This project creates a **desktop widget** that:
+1. **Fetches your tasks** from Todoist automatically
+2. **Processes your wallpaper** to create a beautiful blurred background
+3. **Displays tasks on your desktop** using Rainmeter with a modern, clean interface
+4. **Updates automatically** - just click refresh to get the latest tasks
 
-## 🎯 Quick Start (5 Minutes!)
+### 🖼️ Visual Example
 
-### Step 1: Clone the Repository
+Your desktop will show something like this:
+```
+┌─────────────────────────────┐
+│  📝 TASKS:                  │
+│  1) Complete project docs   │
+│  2) Review pull requests    │
+│  3) Update website content  │
+│  4) Call dentist           │
+│  [🔄 Refresh]              │
+└─────────────────────────────┘
+```
+
+## ⚡ Quick Start (5 Minutes Setup)
+
+### Step 1: Download the Project
 ```bash
 git clone https://github.com/mvbrahmam33/TaskFromTodoist.git
 cd TaskFromTodoist
 ```
 
 ### Step 2: Get Your Todoist API Token
-1. Go to [Todoist Settings](https://todoist.com/prefs/integrations) → Integrations
-2. Scroll down to "Developer" section
-3. Copy your API token (it looks like: `a1b2c3d4e5f6...`)
+1. Go to [Todoist Settings](https://todoist.com/app/settings/integrations/developer)
+2. Copy your **API Token**
+3. Keep it handy - you'll need it in Step 4!
 
 ### Step 3: Run the Setup Script
+Open PowerShell in the project folder and run:
 ```powershell
-# This will check dependencies and create configuration files
 .\scripts\setup.ps1
 ```
 
+This script will:
+- ✅ Check if you have all required software
+- ✅ Create necessary folders
+- ✅ Set up configuration templates
+- ✅ Build the project automatically
+
 ### Step 4: Configure Your Settings
-```powershell
-# Copy the example configuration
-Copy-Item config\config.example.json config\config.local.json
-
-# Edit the configuration file (opens in notepad)
-notepad config\config.local.json
-```
-
-**Replace this line:**
-```json
-"api_token": "YOUR_TODOIST_API_TOKEN_HERE"
-```
-**With your actual token:**
-```json
-"api_token": "a1b2c3d4e5f6your_actual_token_here"
-```
-
-### Step 5: Build and Run!
-```powershell
-# Build the project
-make
-
-# Run the automation
-.\scripts\todoistRefresh.ps1
-```
-
-That's it! Your tasks should now be fetched and displayed. 🎉
-
-## 📦 System Requirements
-
-### Required (Must Have)
-- ✅ **Windows 10/11**
-- ✅ **PowerShell** (usually pre-installed)
-- ✅ **Git** (for cloning)
-- ✅ **MinGW-w64** or **Visual Studio Build Tools** (C++ compiler)
-- ✅ **vcpkg** (C++ package manager)
-
-### Optional (For Full Features)
-- 🎨 **ImageMagick** (for wallpaper processing)
-- 🖥️ **Rainmeter** (for desktop widgets)
-
-## 🛠️ Detailed Setup Instructions
-
-### Install C++ Build Tools
-
-#### Option A: MinGW-w64 (Recommended)
-```bash
-# Using Chocolatey (recommended)
-choco install mingw
-
-# Or download from: https://www.mingw-w64.org/downloads/
-```
-
-#### Option B: Visual Studio Build Tools
-```bash
-# Using Chocolatey
-choco install visualstudio2022buildtools --package-parameters "--add Microsoft.VisualStudio.Workload.VCTools"
-
-# Or download from: https://visualstudio.microsoft.com/downloads/#build-tools-for-visual-studio-2022
-```
-
-### Install vcpkg
-```bash
-# Clone vcpkg
-git clone https://github.com/Microsoft/vcpkg.git C:\dev\vcpkg
-cd C:\dev\vcpkg
-
-# Bootstrap vcpkg
-.\bootstrap-vcpkg.bat
-
-# Integrate with your system
-.\vcpkg integrate install
-
-# Install required packages
-.\vcpkg install cpr:x64-mingw-static
-.\vcpkg install nlohmann-json:x64-mingw-static
-.\vcpkg install curl:x64-mingw-static
-```
-
-### Install Optional Components
-
-#### ImageMagick (for wallpaper processing)
-```bash
-# Using Chocolatey
-choco install imagemagick
-
-# Or download from: https://imagemagick.org/script/download.php#windows
-```
-
-#### Rainmeter (for desktop integration)
-```bash
-# Using Chocolatey
-choco install rainmeter
-
-# Or download from: https://www.rainmeter.net/
-```
-
-## ⚙️ Configuration Guide
-
-Your `config\config.local.json` file controls everything. Here's what each setting does:
-
+Edit `config\config.local.json` and replace:
 ```json
 {
-    "_comment": "Your personal configuration file",
     "todoist": {
-        "api_token": "PUT_YOUR_TOKEN_HERE",    // 👈 Your Todoist API token
-        "filter": "#Inbox"                    // Which tasks to fetch
-    },
-    "output": {
-        "file_path": "output/tasks.txt"       // Where to save tasks
-    },
-    "rainmeter": {
-        "enabled": true,                      // Enable/disable Rainmeter
-        "executable_path": "C:\\Program Files\\Rainmeter\\Rainmeter.exe"
-    },
-    "imagemagick": {
-        "executable_path": "C:\\Program Files\\ImageMagick-7.1.1-Q16-HDRI\\magick.exe",
-        "blur_radius": "0x4",                 // How blurry the wallpaper
-        "crop_ratio": "16:10"                 // Aspect ratio for cropping
+        "api_token": "PUT_YOUR_TODOIST_API_TOKEN_HERE",
+        "filter": "#Inbox"
     }
 }
 ```
 
-### Common Filters You Can Use:
-- `"#Inbox"` - Only inbox tasks
-- `"today"` - Tasks due today
-- `"overdue"` - Overdue tasks
-- `"p1"` - Priority 1 tasks
-- `"@work"` - Tasks with @work label
-
-## 🎮 Usage Examples
-
-### Basic Usage
+### Step 5: Test It!
 ```powershell
-# Run everything (wallpaper + tasks + Rainmeter)
 .\scripts\todoistRefresh.ps1
+```
+
+You should see your tasks in the `output\tasks.txt` file!
+
+## 🎯 Full Desktop Integration (Optional)
+
+To get the **full desktop widget experience**, you'll need Rainmeter:
+
+### Install Rainmeter
+1. Download from [rainmeter.net](https://www.rainmeter.net/)
+2. Install with default settings
+
+### Set Up the Desktop Widget
+1. Copy your Rainmeter skin files to: `C:\Users\YourName\Documents\Rainmeter\Skins\Todoist\`
+2. Update paths in `config\config.local.json`:
+```json
+{
+    "paths": {
+        "tasks_file": "C:\\Users\\YourName\\Documents\\Rainmeter\\Skins\\Todoist\\@Resources\\todoistTasks.txt"
+    }
+}
+```
+
+3. Run the full script:
+```powershell
+.\scripts\todoistRefresh.ps1
+```
+
+Now you'll have a beautiful desktop widget showing your tasks!
+
+## 🛠️ Prerequisites
+
+### Required (Auto-checked by setup script)
+- **Windows 10/11**
+- **PowerShell** (included with Windows)
+- **MinGW-w64** or Visual Studio Build Tools
+- **vcpkg** (C++ package manager)
+
+### Optional (for desktop widget)
+- **Rainmeter** (for desktop display)
+- **ImageMagick** (for wallpaper effects)
+
+Don't worry - the setup script will guide you through installing what you need!
+
+## 🔧 Troubleshooting
+
+### "API token not configured"
+- Make sure you copied your Todoist API token correctly
+- Check that `config\config.local.json` exists and has your token
+
+### "Executable not found"
+- Run `make` in the project folder to build the application
+- Or run `.\scripts\setup.ps1` again
+
+### "Permission denied"
+- Run PowerShell as Administrator
+- Make sure your antivirus isn't blocking the executable
+
+### Still having issues?
+- Check the detailed guide: [`docs/BUILD.md`](docs/BUILD.md)
+- Look at the troubleshooting section in the main README
+
+## 🎨 Customization
+
+### Change Task Filter
+Edit `config\config.local.json`:
+```json
+{
+    "todoist": {
+        "filter": "@work"  // Show only work tasks
+    }
+}
 ```
 
 ### Skip Wallpaper Processing
 ```powershell
-# Just fetch tasks and update Rainmeter
 .\scripts\todoistRefresh.ps1 -SkipWallpaper
 ```
 
-### Skip Rainmeter Integration
+### Use Without Rainmeter
 ```powershell
-# Just process wallpaper and fetch tasks
 .\scripts\todoistRefresh.ps1 -SkipRainmeter
 ```
 
-### Use Different API Key
-```powershell
-# Override the config file API key
-.\scripts\todoistRefresh.ps1 -ApiKey "different_token_here"
+Your tasks will be saved to `output\tasks.txt` which you can open with any text editor.
+
+## 📱 Daily Usage
+
+### Automatic Updates
+Set up a Windows scheduled task to run:
 ```
-
-### Use Custom Configuration
-```powershell
-# Use a different config file
-.\scripts\todoistRefresh.ps1 -ConfigPath "path\to\other\config.json"
+.\scripts\todoistRefresh.ps1
 ```
+Every 15-30 minutes for automatic task updates.
 
-## 🚨 Troubleshooting
+### Manual Refresh
+- Click the refresh button in your desktop widget, or
+- Run `.\scripts\todoistRefresh.ps1` in PowerShell
 
-### "vcpkg not found" Error
-1. Make sure vcpkg is installed at `C:\dev\vcpkg`
-2. Update the path in `makefile` if you installed it elsewhere
-3. Run `vcpkg integrate install`
+## 🤝 Need Help?
 
-### "ImageMagick not found" Error
-1. Install ImageMagick from the official website
-2. Update the path in your `config.local.json`
-3. Or skip wallpaper processing: `.\scripts\todoistRefresh.ps1 -SkipWallpaper`
+1. **Check the logs** - The script shows detailed status messages
+2. **Read the docs** - [`README.md`](README.md) and [`docs/BUILD.md`](docs/BUILD.md)
+3. **Open an issue** - [GitHub Issues](https://github.com/mvbrahmam33/TaskFromTodoist/issues)
 
-### "Rainmeter not found" Error
-1. Install Rainmeter from rainmeter.net
-2. Update the path in your `config.local.json`
-3. Or skip Rainmeter: `.\scripts\todoistRefresh.ps1 -SkipRainmeter`
+## 🎉 You're All Set!
 
-### "Build failed" Error
-1. Make sure you have a C++ compiler installed
-2. Check that vcpkg packages are installed
-3. Try running `make clean` then `make`
+Congratulations! You now have a powerful desktop task management system that:
+- ✅ Automatically fetches your Todoist tasks
+- ✅ Displays them beautifully on your desktop
+- ✅ Updates with a single click
+- ✅ Works seamlessly with your workflow
 
-### "API authentication failed" Error
-1. Double-check your Todoist API token
-2. Make sure you copied it exactly (no extra spaces)
-3. Try getting a new token from Todoist settings
-
-## 🤝 Getting Help
-
-- 📖 **Check the docs**: Look in the `docs/` folder for detailed guides
-- 🐛 **Found a bug?**: Open an issue on GitHub
-- 💡 **Have an idea?**: Open a feature request
-- 🗣️ **Need help?**: Ask in the GitHub discussions
-
-## 🎉 Success!
-
-If you see "Script completed successfully!" in green text, everything worked! Your tasks are now:
-- 📝 Saved to a text file
-- 🎨 Displayed on your desktop (if using Rainmeter)
-- 🔄 Ready to be refreshed whenever you run the script
-
-Welcome to automated task management! 🚀
+Enjoy your productivity boost! 🚀

@@ -1,46 +1,27 @@
 {
-    "_comment": "TodoistTaskFetcher Configuration Template",
-    "_instructions": "1. Copy this file to config.local.json  2. Replace YOUR_TODOIST_API_TOKEN_HERE with your actual token from todoist.com/prefs/integrations  3. Update paths to match your system",
-    
+    "_comment": "Todoist Task Fetcher Configuration - Copy this file to config.local.json and fill in your details",
     "todoist": {
         "api_token": "YOUR_TODOIST_API_TOKEN_HERE",
         "filter": "#Inbox",
         "include_overdue": true
     },
-    
     "output": {
         "file_path": "output/tasks.txt",
         "format": "numbered"
     },
-    
     "rainmeter": {
         "enabled": true,
-        "skin_path": "C:\\Users\\YOUR_USERNAME\\Documents\\Rainmeter\\Skins\\Todoist",
+        "skin_path": "C:\\Users\\USERNAME\\Documents\\Rainmeter\\Skins\\Todoist",
         "executable_path": "C:\\Program Files\\Rainmeter\\Rainmeter.exe"
     },
-    
     "imagemagick": {
         "executable_path": "C:\\Program Files\\ImageMagick-7.1.1-Q16-HDRI\\magick.exe",
         "blur_radius": "0x4",
         "crop_ratio": "16:10"
     },
-    
     "paths": {
         "wallpaper_output": "C:\\Users\\YOUR_USERNAME\\Documents\\Rainmeter\\Skins\\Todoist\\@Resources\\Images\\blurImage.jpg",
         "dimensions_file": "C:\\Users\\YOUR_USERNAME\\Documents\\Rainmeter\\Skins\\Todoist\\@Resources\\dimensions.txt",
         "tasks_file": "C:\\Users\\YOUR_USERNAME\\Documents\\Rainmeter\\Skins\\Todoist\\@Resources\\todoistTasks.txt"
-    },
-    
-    "_examples": {
-        "_comment": "Here are some example configurations you can use:",
-        "filters": {
-            "inbox_only": "#Inbox",
-            "today_tasks": "today",
-            "overdue_tasks": "overdue", 
-            "priority_tasks": "p1",
-            "work_tasks": "@work"
-        },
-        "blur_options": ["0x2", "0x4", "0x6", "0x8"],
-        "crop_ratios": ["16:9", "16:10", "21:9", "4:3"]
     }
 }

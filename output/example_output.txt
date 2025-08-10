@@ -1,6 +1,0 @@
-TASKS:
-1) Review project documentation
-2) Fix configuration template
-3) Update README with new features
-4) Test automated setup process
-5) Respond to GitHub issues

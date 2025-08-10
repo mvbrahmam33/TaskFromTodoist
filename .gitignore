@@ -8,9 +8,9 @@ build/
 *.exp
 *.pdb
 
-# Output files (but keep examples)
-output/*.txt
-!output/example_output.txt
+# Output files
+output/
+*.txt
 !README.md
 !LICENSE
 

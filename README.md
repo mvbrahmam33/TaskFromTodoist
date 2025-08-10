@@ -1,65 +1,58 @@
-# 🚀 TodoistTaskFetcher
+# TasksFromTodoist
 
-> **Automate your productivity!** Fetch tasks from Todoist and display them beautifully on your Windows desktop.
+A Windows desktop application that fetches your Todoist tasks and displays them as a beautiful desktop widget using Rainmeter. Perfect for keeping your tasks visible and accessible right on your desktop!
 
-[![GitHub release](https://img.shields.io/github/v/release/mvbrahmam33/TaskFromTodoist)](https://github.com/mvbrahmam33/TaskFromTodoist/releases)
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-[![Windows](https://img.shields.io/badge/platform-Windows-blue.svg)](README.md)
+## 🎯 What It Does
 
-## 🎯 What Does This Do?
+1. **Fetches Tasks** - Automatically retrieves tasks from your Todoist Inbox
+2. **Saves to File** - Creates a text file with your tasks in a clean format
+3. **Desktop Display** - Shows tasks on your desktop using Rainmeter (optional)
+4. **Wallpaper Effects** - Creates blurred wallpaper backgrounds for better visibility (optional)
 
-TodoistTaskFetcher is a **desktop automation tool** that:
+## 🚀 Quick Start
 
-- ✅ **Fetches your tasks** from Todoist's inbox automatically
-- 🎨 **Processes your wallpaper** to create a beautiful blurred background
-- 🖥️ **Integrates with Rainmeter** to show tasks directly on your desktop
-- ⚡ **Filters tasks** to show only what's due today or overdue
-- 🔄 **Runs automatically** via PowerShell script
+**New to this?** Start here: [`GETTING_STARTED.md`](GETTING_STARTED.md)
 
-Perfect for productivity enthusiasts who want their tasks visible at all times!
+**Need installation help?** See: [`INSTALLATION.md`](INSTALLATION.md)
 
-## 🚀 Quick Start (5 Minutes!)
+### Super Quick Setup
+1. **Download**: `git clone https://github.com/mvbrahmam33/TaskFromTodoist.git`
+2. **Setup**: `.\scripts\setup.ps1`
+3. **Configure**: Add your Todoist API token to `config\config.local.json`
+4. **Run**: `.\scripts\todoistRefresh.ps1`
 
-**New to this project?** 👉 **[Start here with our Getting Started Guide!](GETTING_STARTED.md)**
+That's it! Your tasks will be in `output\tasks.txt`
 
-```powershell
-# 1. Clone the project
-git clone https://github.com/mvbrahmam33/TaskFromTodoist.git
-cd TaskFromTodoist
+## 📸 What You Get
 
-# 2. Run setup (checks dependencies, creates config)
-.\scripts\setup.ps1
-
-# 3. Add your Todoist API token
-Copy-Item config\config.example.json config\config.local.json
-notepad config\config.local.json  # Add your API token here
-
-# 4. Build and run!
-make
-.\scripts\todoistRefresh.ps1
+### Simple Text Output
+```
+TASKS:
+1) Complete project documentation
+2) Review pull requests  
+3) Update website content
+4) Call dentist
 ```
 
-**🎉 Done!** Your tasks are now fetched and displayed!
+### Desktop Widget (with Rainmeter)
+A beautiful, always-visible widget on your desktop showing your tasks with refresh buttons and custom styling.
 
-## Features
+## 🛠️ Requirements
 
-- **Todoist API Integration**: Fetches tasks from Todoist inbox using REST API
-- **Due Date Filtering**: Only retrieves tasks that are due today or overdue
-- **Wallpaper Processing**: Automatically crops and blurs wallpaper for Rainmeter background
-- **Rainmeter Integration**: Activates and refreshes Rainmeter skins automatically
-- **Cross-platform Build**: Uses vcpkg for dependency management
+### Essential
+- **Windows 10/11**
+- **PowerShell** (included with Windows)
+- **Internet connection** (to fetch tasks)
 
-## Dependencies
+### For Building (handled by setup script)
+- **C++ compiler** (MinGW-w64)
+- **vcpkg** (C++ package manager)
 
-### Required Libraries
-- **libcpr**: HTTP client library for C++
-- **nlohmann/json**: JSON parsing library
-- **ImageMagick**: Image processing (for wallpaper manipulation)
+### Optional (for desktop widget)
+- **Rainmeter** (desktop customization)
+- **ImageMagick** (wallpaper effects)
 
-### Build Tools
-- **MinGW-w64**: C++ compiler
-- **vcpkg**: Package manager for C++ libraries
-- **Make**: Build system
+**Don't worry!** The setup script will guide you through installing everything you need.
 
 ## Project Structure
 
@@ -82,44 +75,57 @@ TasksFromTodoist/
 └── README.md                # This file
 ```
 
-## Quick Start
+## 📚 Documentation
 
-1. **Run the setup script**:
-   ```powershell
-   .\scripts\setup.ps1
-   ```
+- **[🚀 Getting Started](GETTING_STARTED.md)** - Complete beginner's guide with 5-minute setup
+- **[📦 Installation Guide](INSTALLATION.md)** - Step-by-step installation help for all components
+- **[💡 Usage Examples](USAGE_EXAMPLES.md)** - Different ways to use the application  
+- **[❓ FAQ](FAQ.md)** - Common questions and troubleshooting
+- **[🔧 Build Instructions](docs/BUILD.md)** - Detailed build and troubleshooting guide
+- **[📝 Changelog](CHANGELOG.md)** - Version history and changes
 
-2. **Configure your settings**:
-   - Edit `config\config.local.json`
-   - Add your Todoist API token
-   - Update paths for your system
+## 🤔 Which Guide Do I Need?
 
-3. **Run the automation**:
-   ```powershell
-   .\scripts\todoistRefresh.ps1
-   ```
+- **Brand new to this?** → Start with [`GETTING_STARTED.md`](GETTING_STARTED.md)
+- **Having installation issues?** → Check [`INSTALLATION.md`](INSTALLATION.md)
+- **Want to see what's possible?** → Browse [`USAGE_EXAMPLES.md`](USAGE_EXAMPLES.md)
+- **Have a quick question?** → Check [`FAQ.md`](FAQ.md)
+- **Need to customize/build manually?** → See [`docs/BUILD.md`](docs/BUILD.md)
 
-For detailed instructions, see [`docs/BUILD.md`](docs/BUILD.md).
+## 🎮 Usage Examples
 
-## Configuration
-
-The project uses a JSON configuration file for easy customization. Copy `config\config.example.json` to `config\config.local.json` and update:
-
-```json
-{
-    "todoist": {
-        "api_token": "your_todoist_api_token_here",
-        "filter": "#Inbox"
-    },
-    "output": {
-        "file_path": "output/tasks.txt"
-    },
-    "rainmeter": {
-        "enabled": true,
-        "executable_path": "C:\\Program Files\\Rainmeter\\Rainmeter.exe"
-    }
-}
+### Just Get Your Tasks (No Desktop Widget)
+```powershell
+# Get tasks and save to a text file
+.\scripts\todoistRefresh.ps1 -SkipWallpaper -SkipRainmeter
+# Your tasks are now in: output\tasks.txt
 ```
+
+### Full Desktop Widget Experience
+```powershell
+# Complete setup with wallpaper effects and desktop display
+.\scripts\todoistRefresh.ps1
+```
+
+### Custom Options
+```powershell
+# Use different API key
+.\scripts\todoistRefresh.ps1 -ApiKey "your_different_token"
+
+# Skip wallpaper processing (faster)
+.\scripts\todoistRefresh.ps1 -SkipWallpaper
+
+# Use custom config file
+.\scripts\todoistRefresh.ps1 -ConfigPath "my_config.json"
+```
+
+## ⚙️ How It Works
+
+1. **C++ Application** (`src/main.cpp`) - Connects to Todoist API and fetches tasks
+2. **PowerShell Script** (`scripts/todoistRefresh.ps1`) - Orchestrates the whole process
+3. **Configuration** (`config/config.local.json`) - Stores your settings and API key
+4. **Output File** - Tasks saved in text format for display
+5. **Rainmeter** (optional) - Reads the text file and displays it on desktop
 
 ## Building
 
